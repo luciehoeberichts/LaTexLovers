@@ -7,4 +7,9 @@ alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N'
 for item in alphabet:
     with open (f'../People/{item}_people.json', encoding = 'utf-8') as people:
         content_people = people.read()
-        print(content_people)
+
+dictionary_people = eval(content_people)
+# with open('results.json', 'w', encoding='utf-8') as file:
+#     json.dump(dictionary_people, file, indent = 4)
+
+
