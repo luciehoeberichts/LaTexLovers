@@ -9,13 +9,20 @@ with open ('shoe-size-by-country-2024.csv', encoding = 'utf-8') as file:
     for item in reader:
         countries.add(item['country'])
 
+Asia = {'countries': ['India', 'China', 'Indonesia', 'Pakistan', 'Bangladesh', 'Japan', 'Philippines', 'Vietnam', 'Thailand', 'South Korea', 'Afghanistan', 'Malaysia', 'Nepal', 'Sri Lanka', 'Singapore', 'Bhutan', 'Maldives'], "Europe": [
+        "United Kingdom", "Germany", "France", "Italy", "Spain", "Poland", "Netherlands",
+        "Belgium", "Sweden", "Norway", "Denmark", "Finland", "Russia", "Ukraine",
+        "Switzerland", "Austria", "Ireland", "Portugal", "Czech Republic", "Hungary"]}
+
+values_Asia=[]
+
 foot_size_detector = re.compile(r'([1-9][0-9]*(\.[0-9])?)')
 
 alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 data_foot_size = []
 
 for item in alphabet:
-    with open (f'../People/{item}_people.json', encoding = 'utf-8') as people_file:
+    with open (f'People/{item}_people.json', encoding = 'utf-8') as people_file:
         content_people = json.load(people_file)
     for person in content_people:
         if 'ontology/shoeSize' in person and 'ontology/birthPlace_label' in person:
@@ -68,3 +75,4 @@ with open('data_foot_size.csv', 'w', encoding='utf-8', newline='') as file:
     writer = csv.DictWriter(file, ['shoeSize', 'place'])
     writer.writeheader()
     writer.writerows(data_foot_size)
+
