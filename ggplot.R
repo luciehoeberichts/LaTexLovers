@@ -9,3 +9,11 @@ ggplot( data = shoe_size_by_country) +
   labs( y =  "Average Shoe Size",  x = "Country") + 
   ggtitle("Average Shoe Size Per Country") +  
   geom_col()
+
+  shoe_size_celeb <- read_csv("data_foot_size.csv")
+
+ggplot( data = shoe_size_celeb) + 
+  aes( y = shoeSize, x = place) + 
+  labs( y =  "shoeSize",  x = "place") + 
+  ggtitle("Average Shoe Size of Celebreties Per Country") +  
+  geom_col()
