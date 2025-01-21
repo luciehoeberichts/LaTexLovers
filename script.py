@@ -12,20 +12,35 @@ for item in alphabet:
     with open (f'../People/{item}_people.json', encoding = 'utf-8') as people_file:
         content_people = json.load(people_file)
     for person in content_people:
-        if 'ontology/shoeSize' in person and 'ontology/birthPlace_label' in person: 
-            shoe_sizes = foot_size_detector.findall(str(person['ontology/shoeSize']))
+        if 'ontology/shoeSize' in person and 'ontology/birthPlace_label' in person:
+            shoe_size_string = str(person['ontology/shoeSize']).lower()
+            shoe_sizes = foot_size_detector.findall(str(shoe_size_string))
 
-            largest_size = 0
+            largest_shoe_size = 0
+            smallest_shoe_size = 9000
             for shoe_size, fraction in shoe_sizes:
                 shoe_size = float(shoe_size)
-                if shoe_size > largest_size:
-                    largest_size = shoe_size
+                if shoe_size > largest_shoe_size:
+                    largest_shoe_size = shoe_size
+                if shoe_size < smallest_shoe_size:
+                    smallest_shoe_size = shoe_size
 
-            if largest_size > 20:
-                largest_size = ((largest_size - 2) / 1.27) - 21.5
+            if largest_shoe_size > 20:
+                fr_shoe_size = ((largest_shoe_size - 2) / 1.27) - 21.5
+            else:
+                if 's' in shoe_size_string:
+                    if 'k' in shoe_size_string:
+                        fr_shoe_size = smallest_shoe_size + 1.5
+                    else:
+                        fr_shoe_size = largest_shoe_size
+                else:
+                    if 'k' in shoe_size_string:
+                        fr_shoe_size = smallest_shoe_size + 1.5
+                    else:
+                        fr_shoe_size = largest_shoe_size  # educated guess
 
             foot_dictionary = {
-                "shoeSize": largest_size, 
+                "shoeSize": fr_shoe_size, 
                 "place": person['ontology/birthPlace_label'][0] if type(person['ontology/birthPlace_label']) is list 
                             else person['ontology/birthPlace_label']
             }
