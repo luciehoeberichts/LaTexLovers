@@ -15,25 +15,45 @@ with open ('shoe-size-by-country-2024.csv', encoding = 'utf-8') as file:
         countries.add(item['country'])
 
 continents = {
-    'Asia': {'India', 'China', 'Indonesia', 'Pakistan', 'Bangladesh', 'Japan', 'Philippines', 'Vietnam', 'Thailand', 'South Korea', 'Afghanistan', 'Malaysia', 'Nepal', 'Sri Lanka', 'Singapore', 'Bhutan', 'Maldives'}, 
-    'Europe': {"United Kingdom", "Germany", "France", "Italy", "Spain", "Poland", "Netherlands",
-        "Belgium", "Sweden", "Norway", "Denmark", "Finland", "Russia", "Ukraine",
-        "Switzerland", "Austria", "Ireland", "Portugal", "Czech Republic", "Hungary"}, 
-    "North America": {
-        "United States", "Canada", "Mexico", "Cuba", "Jamaica", "Haiti", "Panama", "Guatemala",
-        "Honduras", "El Salvador", "Costa Rica", "Belize", "Bahamas"
-    },
-    "South America": {
-        "Brazil", "Argentina", "Colombia", "Peru", "Venezuela", "Chile", "Ecuador",
-        "Bolivia", "Paraguay", "Uruguay", "Guyana", "Suriname"
-    },
     "Africa": {
-        "Nigeria", "South Africa", "Egypt", "Kenya", "Ethiopia", "Ghana", "Tanzania",
-        "Algeria", "Sudan", "Morocco", "Angola", "Uganda", "Mozambique", "Zambia",
-        "Zimbabwe", "Cameroon", "Senegal"
+        "Algeria", "Angola", "Benin", "Botswana", "Burkina Faso", "Burundi", "Cabo Verde", "Cameroon",
+        "Central African Republic", "Chad", "Comoros", "Congo", "Djibouti", "Egypt", "Equatorial Guinea",
+        "Eswatini", "Ethiopia", "Gabon", "Gambia", "Ghana", "Guinea", "Guinea-Bissau", "Ivory Coast",
+        "Kenya", "Lesotho", "Liberia", "Libya", "Madagascar", "Malawi", "Mali", "Mauritania",
+        "Mauritius", "Morocco", "Mozambique", "Namibia", "Niger", "Nigeria", "Rwanda", "Sao Tome and Principe",
+        "Senegal", "Seychelles", "Sierra Leone", "Somalia", "South Africa", "South Sudan", "Sudan",
+        "Tanzania", "Togo", "Tunisia", "Uganda", "Zambia", "Zimbabwe"
+    },
+    "Asia": {
+        "Afghanistan", "Armenia", "Azerbaijan", "Bahrain", "Bangladesh", "Bhutan", "Brunei", "Cambodia",
+        "China", "Cyprus", "Georgia", "India", "Indonesia", "Iran", "Iraq", "Israel", "Japan",
+        "Jordan", "Kazakhstan", "Kuwait", "Kyrgyzstan", "Laos", "Lebanon", "Malaysia", "Maldives",
+        "Mongolia", "Myanmar", "Nepal", "North Korea", "Oman", "Pakistan", "Palestine", "Philippines",
+        "Qatar", "Saudi Arabia", "Singapore", "South Korea", "Sri Lanka", "Syria", "Tajikistan",
+        "Thailand", "Timor-Leste", "Turkey", "Turkmenistan", "United Arab Emirates", "Uzbekistan",
+        "Vietnam", "Yemen", "Taiwan", "Russia"
+    },
+    "Europe": {
+        "Albania", "Andorra", "Austria", "Belarus", "Belgium", "Bosnia and Herzegovina", "Bulgaria", "Croatia",
+        "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary",
+        "Iceland", "Ireland", "Italy", "Kosovo", "Latvia", "Liechtenstein", "Lithuania", "Luxembourg",
+        "Malta", "Moldova", "Monaco", "Montenegro", "Netherlands", "North Macedonia", "Norway", "Poland",
+        "Portugal", "Romania", "San Marino", "Serbia", "Slovakia", "Slovenia", "Spain", "Sweden",
+        "Switzerland", "Ukraine", "United Kingdom", "Vatican City"
+    },
+    "North America": {
+        "Antigua and Barbuda", "Bahamas", "Barbados", "Belize", "Canada", "Costa Rica", "Cuba", "Dominica",
+        "Dominican Republic", "El Salvador", "Grenada", "Guatemala", "Haiti", "Honduras", "Jamaica",
+        "Mexico", "Nicaragua", "Panama", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines",
+        "Trinidad and Tobago", "United States"
     },
     "Oceania": {
-        "Australia", "New Zealand", "Papua New Guinea", "Fiji", "Samoa", "Tonga", "Vanuatu"
+        "Australia", "Fiji", "Kiribati", "Marshall Islands", "Micronesia", "Nauru", "New Zealand", "Palau",
+        "Papua New Guinea", "Samoa", "Solomon Islands", "Tonga", "Tuvalu", "Vanuatu"
+    },
+    "South America": {
+        "Argentina", "Bolivia", "Brazil", "Chile", "Colombia", "Ecuador", "Guyana", "Paraguay",
+        "Peru", "Suriname", "Uruguay", "Venezuela"
     }
 }
 
