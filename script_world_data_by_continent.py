@@ -13,28 +13,25 @@ world_list = []
 with open('world_data.json', 'w') as file:
     json.dump(list_of_dict, file, indent=4)
 
-continents = {
-    'Asia': {'India', 'China', 'Indonesia', 'Pakistan', 'Bangladesh', 'Japan', 'Philippines', 'Vietnam', 'Thailand', 'South Korea', 'Afghanistan', 'Malaysia', 'Nepal', 'Sri Lanka', 'Singapore', 'Bhutan', 'Maldives'}, 
-    'Europe': {"United Kingdom", "Germany", "France", "Italy", "Spain", "Poland", "Netherlands",
-        "Belgium", "Sweden", "Norway", "Denmark", "Finland", "Russia", "Ukraine",
-        "Switzerland", "Austria", "Ireland", "Portugal", "Czech Republic", "Hungary"}, 
+continents = {'Asia': {'India', 'Uzbekistan', 'Bahrain','China', 'Indonesia', 'Iran', 'Pakistan', 'Bangladesh', 'Japan', 'Israel', 'Philippines', 'Vietnam', 'Thailand', 'South Korea', 'Afghanistan', 'Malaysia', 'Nepal', 'Sri Lanka', 'Singapore', 'Bhutan', 'Maldives', 'Turkey'}, 
+    'Europe': {"United Kingdom", 'Malta','Lithuania','Serbia', "Germany", "France", "Italy", "Spain", "Poland", "Netherlands",
+        "Belgium", "Sweden", 'Albania', 'Croatia', 'Iceland', 'Latvia', 'Estonia', 'Bosnia and Herzegovina', "Norway", "Denmark", "Finland", "Russia", "Ukraine",
+        "Switzerland", "Austria", 'Greece', 'Slovakia', "Ireland", "Portugal", "Czech Republic", "Hungary", 'Estonia'}, 
     "North America": {
         "United States", "Canada", "Mexico", "Cuba", "Jamaica", "Haiti", "Panama", "Guatemala",
-        "Honduras", "El Salvador", "Costa Rica", "Belize", "Bahamas"
+        "Honduras", "El Salvador", "Costa Rica", "Belize", "Bahamas", 'Dominican Republic'
     },
     "South America": {
         "Brazil", "Argentina", "Colombia", "Peru", "Venezuela", "Chile", "Ecuador",
         "Bolivia", "Paraguay", "Uruguay", "Guyana", "Suriname"
     },
     "Africa": {
-        "Nigeria", "South Africa", "Egypt", "Kenya", "Ethiopia", "Ghana", "Tanzania",
+        "Nigeria", "South Africa", 'Tunisia', "Egypt", "Kenya", "Ethiopia", "Ghana", "Tanzania",
         "Algeria", "Sudan", "Morocco", "Angola", "Uganda", "Mozambique", "Zambia",
-        "Zimbabwe", "Cameroon", "Senegal"
+        "Zimbabwe", "Cameroon", "Senegal", 'Namibia'
     },
     "Oceania": {
-        "Australia", "New Zealand", "Papua New Guinea", "Fiji", "Samoa", "Tonga", "Vanuatu"
-    }
-}
+        "Australia", "New Zealand", "Papua New Guinea", "Fiji", "Samoa", "Tonga", "Vanuatu"}}
 
 
 #continentos = ['Asia', 'Northern Amercia', 'Europe', 'Africa', 'South America', 'Oceania']
