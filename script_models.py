@@ -1,8 +1,10 @@
 import json
+import csv
+
 
 alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-data_foot_size = []
-models = []
+data_model = []
+
 types = set()
 for item in alphabet:
     with open (f'../People/{item}_people.json', encoding = 'utf-8') as people_file:
@@ -14,9 +16,17 @@ for item in alphabet:
             if 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type_label'in person:
                 for type in person['http://www.w3.org/1999/02/22-rdf-syntax-ns#type_label']:
                     types.add(type)
-
+                models = []
                 if 'model' in person['http://www.w3.org/1999/02/22-rdf-syntax-ns#type_label']:
-                    models.append(person['title'])
+                    models.append(person['http://www.w3.org/1999/02/22-rdf-syntax-ns#type_label'][2])
+                
+                    models_dictionary = {
+                    "occupation": models
+                }
+                    data_model.append(models_dictionary)
             
                 
-print(len(models))
+with open('they_all_models.csv', 'w', encoding='utf-8', newline='') as file:
+    writer = csv.DictWriter(file, ['occupation'])
+    writer.writeheader()
+    writer.writerows(data_model)
