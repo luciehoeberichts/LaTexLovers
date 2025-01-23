@@ -8,12 +8,6 @@ import time
 geolocator = Nominatim(user_agent = "Nominatim")
 people_list = []
 
-countries = set()
-with open ('shoe-size-by-country-2024.csv', encoding = 'utf-8') as file:
-    reader = csv.DictReader(file)
-    for item in reader:
-        countries.add(item['country'])
-
 continents = {
     "Africa": {
         "Algeria", "Angola", "Benin", "Botswana", "Burkina Faso", "Burundi", "Cabo Verde", "Cameroon",
@@ -57,6 +51,10 @@ continents = {
     }
 }
 
+countries = set()
+for continent, continent_countries in continents.items():
+    countries |= continent_countries
+
 
 foot_size_detector = re.compile(r'([1-9][0-9]*(\.[0-9])?)')
 
@@ -64,8 +62,9 @@ alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N'
 data_foot_size = []
 
 for item in alphabet:
-    with open (f'./People/People/{item}_people.json', encoding = 'utf-8') as people_file:
+    with open (f'./People/{item}_people.json', encoding = 'utf-8') as people_file:
         content_people = json.load(people_file)
+
     for person in content_people:
         if 'ontology/shoeSize' in person and 'ontology/birthPlace_label' in person:
             # Find everything that looks like it might be a shoe size
@@ -97,51 +96,45 @@ for item in alphabet:
                     else:
                         fr_shoe_size = largest_shoe_size  # educated guess
 
-            if 'ontology/birthPlace_label' in person:
-                # location = geolocator.geocode(str(person['ontology/birthPlace_label']))
-                # geolocation = [location.latitude, location.longitude]
-                # location_address = geolocator.reverse(geolocation)
+            # Find place that is actually a country name
+            if type(person['ontology/birthPlace_label']) is not list:
+                person['ontology/birthPlace_label'] = [person['ontology/birthPlace_label']]
+
+            country = None
+            for place in person['ontology/birthPlace_label']:
+                if place in countries:
+                    country = place
             
-            
+            # If we cannot find a country, try geocoding
+            if country is None:
+                place = person['ontology/birthPlace_label'][0]
+                for i in range(3):
+                    try:
+                        location = geolocator.geocode(place, language='en')
+                        if location:
+                            country = location.address.split(', ')[-1]
+                            time.sleep(.5)
+                        break
+                    except:
+                        if i == 2:
+                            print('Failed.')
+                        else:
+                            print(f'Trying again... ({i + 1})')
+                        time.sleep(1.5)
 
-                # Find place that is actually a country name
-                if type(person['ontology/birthPlace_label']) is not list:
-                    person['ontology/birthPlace_label'] = [person['ontology/birthPlace_label']]
+            #Sort by continent
+            continent = None
+            for current_continent, continent_countries in continents.items():
+                if country in continent_countries:
+                    continent = current_continent
 
-                country = None
-                for place in person['ontology/birthPlace_label']:
-                    if place in countries:
-                        country = place
-                
-                # If we cannot find a country, try geocoding
-                if country is None:
-                    place = person['ontology/birthPlace_label'][0]
-                    for i in range(3):
-                        try:
-                            location = geolocator.geocode(place, language='en')
-                            if location:
-                                country = location.address.split(', ')[-1]
-                                # print(person['ontology/birthPlace_label'])
-                                # print(country)
-                                time.sleep(.5)
-                            break
-                        except:
-                            # print(f'Trying again... ({i + 1})')
-                            time.sleep(1.5)
-
-                    #Sort by continent
-                    continent = None
-                    for current_continent, continent_countries in continents.items():
-                        if country in continent_countries:
-                            continent = current_continent
-
-                    # Create final data dictionary
-                    foot_dictionary = {
-                        "shoeSize": fr_shoe_size, 
-                        "place": country,
-                        "continent": continent
-                        }
-                    data_foot_size.append(foot_dictionary)
+            # Create final data dictionary
+            foot_dictionary = {
+                "shoeSize": fr_shoe_size, 
+                "place": country,
+                "continent": continent
+            }
+            data_foot_size.append(foot_dictionary)
 
 with open('data_foot_size.csv', 'w', encoding='utf-8', newline='') as file:
     writer = csv.DictWriter(file, ['shoeSize', 'place', 'continent'])
