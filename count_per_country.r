@@ -7,11 +7,11 @@ shoe_size_by_wikepedia <- read_csv("data_foot_size.csv") |>
   select(-continent) |>
   filter(place != "Other")
 
+
 ggplot(data = shoe_size_by_wikepedia) + 
   aes(x = place) + 
   labs(y =  "Count of shoe sizes",  x = "Country") + 
   ggtitle("Count of shoe sizes per country") + 
-  theme_light() + 
-  geom_bar(stat="count", fill = "darkblue")
+  geom_bar(stat="count")
 
-ggsave("count_shoe_size_per_country.pdf")
+ggsave("count_shoe_sizes_country.pdf")
