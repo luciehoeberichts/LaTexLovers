@@ -1,0 +1,139 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{biblatex}
+\usepackage{placeins}
+\usepackage{hyperref}
+\addbibresource{bibliography.bib}
+
+\title{Can Models Represent?}
+\subtitle{A Toe Tail About Representation...}
+\newcommand{\heart}{\ensuremath\heartsuit}
+\author{\LaTeX\ L{\heart}vers}
+\date{January 24th 2025}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+After discovering that the media representation of models can cause body-focused anxiety according to Maymone, Mayra Bc, et al., we were curious to find out what could be the main cause of this.
+\cite{bodies}
+Our main hypothesis was that models do not accurately represent the general public's bodily figures, thus creating unrealistic beauty standards. 
+
+Due to the hyper-representation of models in the media, many people are led to believe that models have the ideal body type, which can cause them to experience body-focused anxiety.
+Hence we asked ourselves if models can be an accurate representation of us, the population, because after all there are some things we cannot change for example our feet.
+
+Therefore, in this analysis, we strive to discover whether models are accurate representations of their populations by checking whether or not their shoe sizes are comparable to those of their nations. 
+
+To conduct this, we aim to investigate if the beauty standards represented by models are realistic by comparing their shoe sizes to the average one in their country. 
+We aim to research whether models have similar foot sizes as other people from the same continent. This information will help to answer the research question: Do Models Accurately Represent Their Nations? 
+
+To establish this, we obtained a dataset from Wikipedia that contains the foot sizes of notable people and a dataset from the World Population Review (WPR) that contains the average foot size for the populations of countries. 
+
+To answer the research question, we first look at the average shoe sizes of models compared to the average shoe size of their corresponding population by continent. In addition, we observe how this comparison evolves on a more accurate scale.
+
+\section{Methods}
+ 
+\subsection{Datasets}
+To proceed with our analysis we used two different datasets. The first is extracted from Wikipedia by a collective of authors. 
+\cite{lehmann2015dbpedia}
+It contains all the possible field names for a Wikipedia entry in English as well as the information for each person. This dataset is suitable for the analysis as it contains the shoe sizes of notable people.
+For this analysis, we are assuming that a notable person is anyone with a Wikipedia page that contains data about them, as we consider this to mean that someone put in the necessary amount of time and care into creating a Wikipedia page for them. In the case where someone has created a Wikipedia page for themselves, we consider them notable as it is rather odd behavior.
+
+The second dataset is provided by the WPR. WPR is an "independent for-profit organization committed to delivering up to date global population data and demographics". The data set contains the average foot size (US) for males and females per country for 162 countries and does not contain any data from countries in Oceania.
+\cite{shoesizes}
+This data set will help us to establish differences and similarities with the open-source data from Wikipedia. 
+
+\subsection{Cleaning}
+Our interaction with the data began by cleaning our first dataset by filtering for people with shoe size data and then selecting their shoe sizes and nationalities. From this modified dataset, the data was filtered by occupation for each datum to select only the models. By doing this we found that all notable people with an indicated foot size on their Wikipedia page were models. After this process we were left with data for 325 models.
+
+We decided to conduct a geographical analysis as we believe that the notable people of our continents could represent the population the best. With this improved data, a list of dictionaries was created to contain these pieces of information for each person included. 
+Furthermore we cleaned the nationality data for it  to only contain countries and continents instead of cities or regions. These steps were conducted using Python. 
+
+\subsection{Shoe Size Converting}
+Additionally, all of the shoe sizes were converted to the US system  that the average shoe size for models per continent could be calculated. The shoe size entries varied in the format in multiple ways: there were numerical value(s) accompanied by their measuring unit(eg. US, EU, United Kingdom, cm) and there were standalone numerical values. Each entry was a combination of these options. 
+The process of converting started with selecting the numbers that were above 20 (EU or centimeters) and applying this formula to convert them into US: 
+((x-2)/1.27)-21.5.
+This formula and the next one were chosen as they average the conversion formulas of male and female sizes. 
+The five values in our data that were in centimeters were turned into negative values after the application of this formula, therefore we chose to eliminate them from our study. 
+Two possible values were left which were either UK or US. For US values, we consider that the sizes are contained between four and twelve. As for UK values, they are contained between two and fourteen. Hence, creating an overlap between the values of two and twelve. We solved the issue of differentiating them by the elimination process found in Figure 2. Since being left with numbers exclusively smaller than twenty, we searched for a size unit by checking for letters 's' for 'US' or 'United States' and 'k' for 'UK' or 'United Kingdom'. Based on this selection and checking for the number of elements and their values, we either considered the value to be US or converted a UK value to US using the formula (x+1.5). 
+\begin{figure}
+ \centering
+ \includegraphics[width = .8\textwidth]{treetime.pdf}
+ \caption{Shoe Size Conversion Process For Values Under 20. Each junction describes a decision criteria to distinguish between US and UK measurements.}
+\end{figure}
+We did all the conversions using Python. 
+
+\subsection{What is the MEANing?}
+Our next step was to create the average of male and female shoe sizes from our second dataset as our study does not consider sex. After these steps, we had averages of both models and populations per country and by continent. 
+We ordered the countries by the amount of data points to take a closer look and compare the shoe sizes of models from the three territories with the most amount of data points: the United States, United Kingdom, and Brazil (72, 26, 21, number of data points respectively). This allowed us to observe the comparison on our most accurate scale. These calculations were done in R.
+
+\section{Results}
+When comparing the average foot size per continent between the WPR and Wikipedia data sets, we found that the average foot size of models is larger than that of the population across all continents that we researched. (Figure 2).
+
+\begin{figure}
+ \centering
+ \includegraphics[width = .8\textwidth]{Merged_Plot_ModelsVPopulation.pdf}
+ \caption{Average Shoe Size per Continent}
+\end{figure}
+
+Moreover, we drew a more accurate comparison by comparing the top three countries in terms of data input in the Wikipedia data set next do the data from the WPR. The results we found show that the average foot size of models is larger than the general population of their nations (Figure 3). Thus strengthening our continental results.
+\begin{figure}
+ \centering
+ \includegraphics[width = .8\textwidth]{Merged_Graph_Country.pdf}
+ \caption{Average Shoe Size per Country}
+\end{figure}
+
+\section{Discussion}
+From the results, we can draw the conclusion that models on average have bigger shoe sizes than the average population. This is the case for all continents researched and the three countries with the most data points in the data set. These results indicate that models do not accurately represent their nations because models have bigger feet on average than the general population. Therefore, the fact that models create body-focused anxiety, could be explained by reasoning that models do not accurately represent most of the population and thus represent an unrealistic beauty standard. 
+
+\subsection{Limitations}
+These conclusions should not be taken literally due to some major limitations of this study. Firstly, the Wikipedia dataset does not accurately represent models globally because the dataset is in English and thus is mostly focused on Anglophone data. This bias of the data set can be seen in the over-representation of Europe (data points: 125 - 150) and North America (data points :75 - 100), and the under representation of the other continents for example Africa (data points: less than 20) ( Figure 6, Appendix). To add to this misrepresentation, Oceania is not included in the comparison because the WPR dataset does not contain information about the average shoe sizes this continent. Thus, we filtered out that data. 
+
+A further limitation of this study is that we had to make an educated guess in order to convert a small proportion of the shoe sizes (Figure 1).
+
+In addition to this, the conversion of US shoe sizes is different for men and women but this was not taken into account when calculating the average shoe size per country based on the WPR dataset. Similarly, time was also not taken into account in this research because the Wikipedia dataset is from 2018, while the WPR dataset is from 2024. Thus, changes in average shoe sizes over time have not been analyzed when considering the foot sizes of models. 
+	
+Furthermore, due to certain entries for shoe sizes on Wikipedia being in an unknown unit some of the converted shoe sizes were clearly erroneous. We removed these values from our study. 
+
+\subsection{Further Research}
+Further research could delve into the differences between model shoe sizes and average shoe sizes per country, while also taking into account the difference in sex to have a more comprehensive and accurate comparison. Moreover, for this research to be more representative of the global population, it should include data about Oceania and more data about models in Africa, South America, and Asia.
+
+Additionally, further research could investigate the other ways in which models could be unrepresentative of the general population, for example looking at whether the misrepresentation identified in our project has a direct effect on self-esteem and what this entails. 
+
+Finally, it could be possible that models have bigger feet due to height requirements they must meet, it would be insightful to research if such a height variable has a correlation to foot size.
+
+\section{Conclusion}
+Our results show that models generally have larger feet than the general population. This shows that models are a select group of people that inaccurately represent and set unrealistic beauty standards for a much larger group. Whilst considering the limitations of this research, we conclude that this misrepresentation could be one of the causes for the body-focused anxiety that the common folk suffer from. 
+
+\href {https://github.com/luciehoeberichts/LaTexLovers.git}{This is our GitHub!}
+\end{document}
+
+\printbibliography
+
+\newpage
+\FloatBarrier
+\section{Appendix}
+
+\begin{figure}
+ \centering
+ \includegraphics[width = .8\textwidth]{Occupation_Pie_Chart.pdf}
+ \caption{Representation of Occupations in Data Set (\%)}
+\end{figure}
+ 
+\begin{figure}
+ \centering
+ \includegraphics[width = .8\textwidth]{Date_Per_Country_Graph.pdf}
+ \caption{Representation of Occupations in Data Set (\%)}
+\end{figure}
+
+\begin{figure}
+ \centering
+ \includegraphics[width = .8\textwidth]{Date_Per_Continent_Graph.pdf}
+ \caption{Wikipedia Data Provided Per Continent}
+\end{figure}
+
+
+
+\end{document}
+our ten-toed (approx) bits at the end of our legs.
